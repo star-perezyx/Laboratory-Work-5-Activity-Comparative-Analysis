@@ -103,3 +103,66 @@
 </tbody>
 </table>
 <!-- DivTable.com -->
+
+# GUIDE QUESTIONS (FINAL REFLECTION)
+
+# A. Model Performance
+# 1. Which pre-trained model achieved the highest accuracy? Why?
+Ans: DenseNet121 achieved the highest accuracy, often exceeding 93% on validation. This is because DenseNet connects each layer to every other layer in a feed-forward fashion, which alleviates the vanishing-gradient problem and encourages feature reuse.
+
+# 2. Which model had the lowest performance? What could be the reason?
+Ans: Teachable Machine had the lowest performance. This was likely due to a simpler architecture and a lower input resolution (180x180), which captures less detail than the more complex pre-trained models.
+
+# 3. How did loss values compare across models?
+Ans: Transfer learning models (DenseNet, ResNet) typically showed lower and more stable loss values compared to the custom V1 model, indicating better convergence.
+
+# B. Evaluation Metrics
+# 4. Why is accuracy not enough to evaluate a model?
+Ans:  Accuracy can be misleading if the dataset is imbalanced (e.g., if one class has many more images than others). It doesn't tell us where the model is specifically failing.
+
+# 5. Which model had the best F1-score? What does it indicate?
+Ans: DenseNet121 had the best F1-score (~0.93). A high F1-score indicates a good balance between Precision and Recall, meaning the model is reliable at both identifying a class and not misidentifying others as that class.
+
+# 6. How did Precision and Recall differ across models?
+Ans: Precision measures how many 'positives' were actually correct, while Recall measures how many of the actual 'positives' the model caught. In our tests, DenseNet maintained high levels for both, while weaker models showed 'gaps' where they often missed certain classes (low recall).
+
+# C. Confusion Matrix Analysis
+# 7. Which classes were frequently misclassified?
+Ans: Classes with similar visual features (e.g., two types of similar-looking objects) were frequently misclassified into one another.
+
+# 8. What patterns did you observe in the confusion matrix?
+Ans: The diagonal line was strongest for DenseNet, while weaker models showed 'scatter' outside the diagonal, indicating confusion between specific categories.
+
+# D. ROC and AUC
+# 9. Which model had the highest AUC score?
+Ans: DenseNet121 achieved a Macro-AUC of approximately 0.99.
+
+# 10. What does AUC tell us about model performance?
+Ans: AUC measures the model's ability to distinguish between classes. An AUC of 0.99 means there is a 99% chance the model will rank a random positive instance higher than a random negative one.
+
+# E. Explainability (Grad-CAM)
+# 11. What did Grad-CAM reveal about model decision-making?
+Ans: Grad-CAM revealed that the models look for specific edges, textures, or central objects to make a decision.
+
+# 12. Did the model focus on relevant image regions?
+Ans: The better models (DenseNet/ResNet) focused on the actual object, while the weaker models sometimes looked at the background or irrelevant edges.
+
+# 13. Which model produced the most meaningful heatmaps?
+Ans: DenseNet121 produced the most meaningful heatmaps that tightly aligned with the physical object in the image.
+
+# F. Model Comparison & Improvement
+# 14. Which model would you recommend for deployment? Why?
+Ans: I recommend DenseNet121 for deployment due to its superior balance of high accuracy, high F1-score, and robust AUC.
+
+# 15. How can you further improve your best-performing model?
+Ans: Further improvements could include Data Augmentation (flipping, rotating images), Fine-tuning for more epochs, or using an even larger architecture like EfficientNetV2.
+
+# G. Real-World Application
+# 16. How can your model be applied in real-world scenarios?
+Ans: This system can be used for automated sorting, inventory management, or assisted living apps (e.g., helping visually impaired users identify objects).
+
+# 17. What are the risks of deploying an inaccurate model?
+Ans: Deploying an inaccurate model in critical fields (like medical or safety) could lead to dangerous misidentifications.
+
+# 18. How can this system be integrated into a mobile/web app?
+Ans: The model can be converted to TensorFlow Lite (.tflite) for use in mobile apps or served via a Flask/FastAPI backend for web applications.
